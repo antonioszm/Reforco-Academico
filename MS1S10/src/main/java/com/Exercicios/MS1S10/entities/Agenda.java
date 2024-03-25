@@ -18,10 +18,10 @@ public class Agenda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long id_Aluno;
-    private long id_Tutor;
+    private long id_aluno;
+    private long id_tutor;
     private Date data;
     private Status status;
     private String tema;
-    private String descriçãoBreve;
+    private String descricaoBreve;
 }
