@@ -25,6 +25,30 @@ public class AgendaController {
         return service.listarTodos();
     }
 
+    @GetMapping("agendamentos/aluno-id/{id}")
+    public List<Agenda> listarPorAlunoId(@PathVariable Long id){
+        ResponseEntity.status(HttpStatus.OK);
+        return listarPorAlunoId(id);
+    }
+
+    @GetMapping("agendamentos/tutor-id/{id}")
+    public List<Agenda> listarPorTutorId(@PathVariable Long id){
+        ResponseEntity.status(HttpStatus.OK);
+        return listarPorTutorId(id);
+    }
+
+    @GetMapping("proximos-agendamentos/tutor-id/{id}")
+    public List<Agenda> listarProximosAgendamentosAluno (@PathVariable Long id){
+        ResponseEntity.status(HttpStatus.OK);
+        return listarProximosAgendamentosAluno(id);
+    }
+
+    @GetMapping("proximos-agendamentos/tutor-id/{id}")
+    public List<Agenda> listarProximosAgendamentosTutor (@PathVariable Long id){
+        ResponseEntity.status(HttpStatus.OK);
+        return listarProximosAgendamentosTutor(id);
+    }
+
     @PostMapping
     public Agenda salvar(@RequestBody Agenda agenda){
         ResponseEntity.status(HttpStatus.CREATED);
@@ -33,7 +57,7 @@ public class AgendaController {
 
     @DeleteMapping("/{id}")
     public void removerPorId(@PathVariable Long id){
-        List<Agenda> listaDeAgendas = new ArrayList<>();
+        List<Agenda> listaDeAgendas = service.listarTodos();
         for (Agenda agenda : listaDeAgendas){
             if (agenda.getId().equals(id)){
                 service.removerPorId(id);

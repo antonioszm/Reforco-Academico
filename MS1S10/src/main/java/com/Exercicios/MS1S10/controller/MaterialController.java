@@ -31,7 +31,7 @@ public class MaterialController {
 
     @DeleteMapping("/{id}")
     public void removerPorId(@PathVariable Long id){
-        List<Material> listaDeMateriais = new ArrayList<>();
+        List<Material> listaDeMateriais = service.listarTodos();
         for (Material materiais : listaDeMateriais){
             if (materiais.getId().equals(id)){
                 service.removerPorId(id);

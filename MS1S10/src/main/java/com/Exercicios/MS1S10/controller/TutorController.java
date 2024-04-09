@@ -31,7 +31,7 @@ public class TutorController {
 
     @DeleteMapping("/{id}")
     public void removerPorId(@PathVariable Long id){
-        List<Tutor> listaDeTutores = new ArrayList<>();
+        List<Tutor> listaDeTutores = service.listarTodos();
         for (Tutor tutores : listaDeTutores){
             if (tutores.getId().equals(id)){
                 service.removerPorId(id);

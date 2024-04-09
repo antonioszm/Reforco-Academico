@@ -32,7 +32,7 @@ public class AlunoController {
 
     @DeleteMapping("/{id}")
     public void removerPorId(@PathVariable Long id){
-        List<Aluno> listaDeAlunos = new ArrayList<>();
+        List<Aluno> listaDeAlunos = service.listarTodos();
         for (Aluno alunos : listaDeAlunos){
             if (alunos.getId().equals(id)){
                 service.removerPorId(id);
