@@ -15,7 +15,7 @@ public interface MaterialRepository extends JpaRepository<Material, Long> {
     @Transactional
     @Query(value = "UPDATE Material SET id_agenda = :id_agenda, descricao = :descicao, caminho_do_arquivo = :caminhoDoArquivo  WHERE id = :id", nativeQuery = true)
     int update(@Param("id") Long id,
-               @Param("id_agenda") Long id_agenda,
+               @Param("id_agenda") Agenda id_agenda,
                @Param("descricao") String descricao,
                @Param("caminhoDoArquivo") String caminhoDoArquivo
     );

@@ -1,12 +1,14 @@
 package com.Exercicios.MS1S10.controller;
 
-import com.Exercicios.MS1S10.entities.Aluno;
 import com.Exercicios.MS1S10.entities.Material;
-import com.Exercicios.MS1S10.service.AlunoService;
+import com.Exercicios.MS1S10.errors.MaterialNotFoundException;
 import com.Exercicios.MS1S10.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,14 +18,33 @@ public class MaterialController {
     MaterialService service;
 
     @GetMapping
-    public List<Material> listarTodos(){return service.listarTodos();}
+    public List<Material> listarTodos(){
+        ResponseEntity.status(HttpStatus.OK);
+        return service.listarTodos();
+    }
 
     @PostMapping
-    public Material salvar(@RequestBody Material material){return service.salvar(material);}
+    public Material salvar(@RequestBody Material material){
+        ResponseEntity.status(HttpStatus.CREATED);
+        return service.salvar(material);
+    }
 
     @DeleteMapping("/{id}")
-    public void removerPorId(@PathVariable Long id){service.removerPorId(id);}
+    public void removerPorId(@PathVariable Long id){
+        List<Material> listaDeMateriais = new ArrayList<>();
+        for (Material materiais : listaDeMateriais){
+            if (materiais.getId().equals(id)){
+                service.removerPorId(id);
+                ResponseEntity.status(HttpStatus.NO_CONTENT);
+            } else {
+                throw new MaterialNotFoundException(id);
+            }
+        }
+    }
 
     @PutMapping
-    public int atualizar(@RequestBody Material material){return service.atualizar(material);}
+    public int atualizar(@RequestBody Material material){
+        ResponseEntity.status(HttpStatus.OK);
+        return service.atualizar(material);
+    }
 }

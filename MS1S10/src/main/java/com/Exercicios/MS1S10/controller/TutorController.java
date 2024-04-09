@@ -1,12 +1,14 @@
 package com.Exercicios.MS1S10.controller;
 
-import com.Exercicios.MS1S10.entities.Aluno;
 import com.Exercicios.MS1S10.entities.Tutor;
-import com.Exercicios.MS1S10.service.AlunoService;
+import com.Exercicios.MS1S10.errors.TutorNotFoundException;
 import com.Exercicios.MS1S10.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,14 +18,33 @@ public class TutorController {
     TutorService service;
 
     @GetMapping
-    public List<Tutor> listarTodos(){return service.listarTodos();}
+    public List<Tutor> listarTodos(){
+        ResponseEntity.status(HttpStatus.OK);
+        return service.listarTodos();
+    }
 
     @PostMapping
-    public Tutor salvar(@RequestBody Tutor tutor){return service.salvar(tutor);}
+    public Tutor salvar(@RequestBody Tutor tutor){
+        ResponseEntity.status(HttpStatus.CREATED);
+        return service.salvar(tutor);
+    }
 
     @DeleteMapping("/{id}")
-    public void removerPorId(@PathVariable Long id){service.removerPorId(id);}
+    public void removerPorId(@PathVariable Long id){
+        List<Tutor> listaDeTutores = new ArrayList<>();
+        for (Tutor tutores : listaDeTutores){
+            if (tutores.getId().equals(id)){
+                service.removerPorId(id);
+                ResponseEntity.status(HttpStatus.NO_CONTENT);
+            } else {
+                throw new TutorNotFoundException(id);
+            }
+        }
+    }
 
     @PutMapping
-    public int atualizar(@RequestBody Tutor tutor){return service.atualizar(tutor);}
+    public int atualizar(@RequestBody Tutor tutor){
+        ResponseEntity.status(HttpStatus.OK);
+        return service.atualizar(tutor);
+    }
 }

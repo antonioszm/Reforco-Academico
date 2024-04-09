@@ -1,24 +1,21 @@
 package com.Exercicios.MS1S10.service;
 
+import com.Exercicios.MS1S10.entities.Agenda;
 import com.Exercicios.MS1S10.entities.Material;
 import com.Exercicios.MS1S10.repository.MaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class MaterialService {
-    @Autowired
+public interface MaterialService {
 
-    MaterialRepository repository;
-    public List<Material> listarTodos(){return repository.findAll();}
-    public Material salvar(Material material){
-        return repository.save(material);
-    }
-    public void removerPorId(Long id){ repository.deleteById(id);}
+    public List<Material> listarTodos();
+    public Material salvar(Material material);
+    public void removerPorId(Long id);
+    public Material listarPorId(Long id);
 
-    public int atualizar(Material material){
-        return repository.update(material.getId(), material.getId_agenda(), material.getDescricao(),material.getCaminhoDoArquivo());
-    }
+    public int atualizar(Material material);
 }

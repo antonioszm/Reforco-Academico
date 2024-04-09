@@ -7,19 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class AlunoService {
-    @Autowired
 
-    AlunoRepository repository;
-    public List<Aluno> listarTodos(){return repository.findAll();}
-    public Aluno salvar(Aluno aluno){
-        return repository.save(aluno);
-    }
-    public void removerPorId(Long id){ repository.deleteById(id);}
+public interface AlunoService {
 
-    public int atualizar(Aluno aluno){
-        return repository.update(aluno.getId(), aluno.getNome());
-    }
+    public List<Aluno> listarTodos();
+    public Aluno salvar(Aluno aluno);
+
+    public void removerPorId(Long id);
+    public Aluno listarPorId(Long id);
+
+    public int atualizar(Aluno aluno);
 }

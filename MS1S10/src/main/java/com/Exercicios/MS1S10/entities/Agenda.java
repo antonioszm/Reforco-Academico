@@ -1,10 +1,7 @@
 package com.Exercicios.MS1S10.entities;
 
 import com.Exercicios.MS1S10.enuns.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +13,15 @@ import java.util.Date;
 public class Agenda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    private long id_aluno;
-    private long id_tutor;
+    @ManyToOne
+    @JoinColumn(name = "id_aluno", nullable = false)
+    private Aluno id_aluno;
+    @ManyToOne
+    @JoinColumn(name = "id_tutor", nullable = false)
+    private Tutor id_tutor;
+
     private Date data;
     private Status status;
     private String tema;

@@ -1,8 +1,5 @@
 package com.Exercicios.MS1S10.entities;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +9,11 @@ import lombok.Setter;
 public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    private long id_agenda;
+    @ManyToOne
+    @JoinColumn(name = "id_agenda", nullable = false)
+    private Agenda id_agenda;
     private String descricao;
     private String caminhoDoArquivo;
 

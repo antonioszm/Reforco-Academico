@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Tutor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String nome;
     private String Especialidade;
 }

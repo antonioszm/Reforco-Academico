@@ -2,11 +2,15 @@ package com.Exercicios.MS1S10.controller;
 
 import com.Exercicios.MS1S10.entities.Agenda;
 import com.Exercicios.MS1S10.entities.Tutor;
+import com.Exercicios.MS1S10.errors.AgendaNotFoundException;
 import com.Exercicios.MS1S10.service.AgendaService;
 import com.Exercicios.MS1S10.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,14 +20,33 @@ public class AgendaController {
     AgendaService service;
 
     @GetMapping
-    public List<Agenda> listarTodos(){return service.listarTodos();}
+    public List<Agenda> listarTodos(){
+        ResponseEntity.status(HttpStatus.OK);
+        return service.listarTodos();
+    }
 
     @PostMapping
-    public Agenda salvar(@RequestBody Agenda agenda){return service.salvar(agenda);}
+    public Agenda salvar(@RequestBody Agenda agenda){
+        ResponseEntity.status(HttpStatus.CREATED);
+        return service.salvar(agenda);
+    }
 
     @DeleteMapping("/{id}")
-    public void removerPorId(@PathVariable Long id){service.removerPorId(id);}
+    public void removerPorId(@PathVariable Long id){
+        List<Agenda> listaDeAgendas = new ArrayList<>();
+        for (Agenda agenda : listaDeAgendas){
+            if (agenda.getId().equals(id)){
+                service.removerPorId(id);
+                ResponseEntity.status(HttpStatus.NO_CONTENT);
+            } else {
+                throw new AgendaNotFoundException(id);
+            }
+        }
+    }
 
     @PutMapping
-    public int atualizar(@RequestBody Agenda agenda){return service.atualizar(agenda);}
+    public int atualizar(@RequestBody Agenda agenda){
+        ResponseEntity.status(HttpStatus.OK);
+        return service.atualizar(agenda);
+    }
 }
