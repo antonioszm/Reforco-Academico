@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -22,7 +23,7 @@ public class Agenda {
     @JoinColumn(name = "id_tutor", nullable = false)
     private Tutor id_tutor;
 
-    private Date data;
+    private LocalDate data;
     private Status status;
     private String tema;
     private String descricaoBreve;

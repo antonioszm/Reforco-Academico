@@ -25,14 +25,14 @@ public class AgendaServiceImpl implements AgendaService {
         List<Agenda> listaDeAgendamentosDoAluno = new ArrayList<>();
         List<Agenda> listaDeAgendamentosDoAlunoCresente = new ArrayList<>();
         for (Agenda agendas : listaAgendas){
-            if (agendas.getId_aluno().equals(id)){
+            if (agendas.getId_aluno().getId().equals(id)){
                 listaDeAgendamentosDoAluno.add(agendas);
             }
         }
         for (Agenda agenda : listaDeAgendamentosDoAluno){
             boolean dataPosterior = true;
             for (Agenda agenda2 : listaDeAgendamentosDoAluno){
-                if (agenda != agenda2 && agenda.getData().before(agenda2.getData())) {
+                if (agenda != agenda2 && agenda.getData().isBefore(agenda2.getData())) {
                     dataPosterior = false;
                     break;
                 }
@@ -48,14 +48,14 @@ public class AgendaServiceImpl implements AgendaService {
         List<Agenda> listaDeAgendamentosDoAluno = new ArrayList<>();
         List<Agenda> listaDeAgendamentosDoAlunoCresente = new ArrayList<>();
         for (Agenda agendas : listaAgendas){
-            if (agendas.getId_aluno().equals(id)){
+            if (agendas.getId_aluno().getId().equals(id)){
                 listaDeAgendamentosDoAluno.add(agendas);
             }
         }
         for (Agenda agenda : listaDeAgendamentosDoAluno){
             boolean dataPosterior = true;
             for (Agenda agenda2 : listaDeAgendamentosDoAluno){
-                if (agenda != agenda2 && agenda.getData().before(agenda2.getData()) && agenda.getData().after(new Date())){
+                if (agenda != agenda2 && agenda.getData().isBefore(agenda2.getData()) && agenda.getData().isAfter(LocalDate.now())){
                     dataPosterior = false;
                     break;
                 }
@@ -71,14 +71,14 @@ public class AgendaServiceImpl implements AgendaService {
         List<Agenda> listaDeAgendamentosDoTutor = new ArrayList<>();
         List<Agenda> listaDeAgendamentosDoTutorCresente = new ArrayList<>();
         for (Agenda agendas : listaAgendas){
-            if (agendas.getId_tutor().equals(id)){
+            if (agendas.getId_tutor().getId().equals(id)){
                 listaDeAgendamentosDoTutor.add(agendas);
             }
         }
         for (Agenda agenda : listaDeAgendamentosDoTutor){
             boolean dataPosterior = true;
             for (Agenda agenda2 : listaDeAgendamentosDoTutor){
-                if (agenda != agenda2 && agenda.getData().before(agenda2.getData()) && agenda.getData().after(new Date())){
+                if (agenda != agenda2 && agenda.getData().isBefore((agenda2.getData())) && agenda.getData().isAfter(LocalDate.now())){
                     dataPosterior = false;
                     break;
                 }
@@ -94,14 +94,14 @@ public class AgendaServiceImpl implements AgendaService {
         List<Agenda> listaDeAgendamentosDoTutor = new ArrayList<>();
         List<Agenda> listaDeAgendamentosDoTutorCresente = new ArrayList<>();
         for (Agenda agendas : listaAgendas){
-            if (agendas.getId_tutor().equals(id)){
+            if (agendas.getId_tutor().getId().equals(id)){
                 listaDeAgendamentosDoTutor.add(agendas);
             }
         }
         for (Agenda agenda : listaDeAgendamentosDoTutor){
             boolean dataPosterior = true;
             for (Agenda agenda2 : listaDeAgendamentosDoTutor){
-                if (agenda != agenda2 && agenda.getData().before(agenda2.getData())) {
+                if (agenda != agenda2 && agenda.getData().isBefore((agenda2.getData()))) {
                     dataPosterior = false;
                     break;
                 }

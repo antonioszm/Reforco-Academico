@@ -1,5 +1,6 @@
 package com.Exercicios.MS1S10.controller;
 
+import com.Exercicios.MS1S10.entities.Agenda;
 import com.Exercicios.MS1S10.entities.Tutor;
 import com.Exercicios.MS1S10.errors.TutorNotFoundException;
 import com.Exercicios.MS1S10.service.TutorService;
@@ -21,6 +22,19 @@ public class TutorController {
     public List<Tutor> listarTodos(){
         ResponseEntity.status(HttpStatus.OK);
         return service.listarTodos();
+    }
+    @GetMapping("/{id}")
+    public Tutor listarPorId(@PathVariable Long id){
+        List<Tutor> listaDeTutores = service.listarTodos();
+        for (Tutor tutores : listaDeTutores){
+            if (tutores.getId().equals(id)){
+                ResponseEntity.status(HttpStatus.OK);
+                return service.listarPorId(id);
+            } else {
+                throw new TutorNotFoundException(id);
+            }
+        }
+        return null;
     }
 
     @PostMapping

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Repository
@@ -21,7 +22,7 @@ public interface AgendaRepository extends JpaRepository<Agenda, Long> {
     int update(@Param("id") Long id,
                @Param("id_aluno") Aluno id_aluno,
                @Param("id_tutor") Tutor id_tutor,
-               @Param("data") Date data,
+               @Param("data") LocalDate data,
                @Param("status")Status status,
                @Param("descricaoBreve") String descricaoBreve
                );

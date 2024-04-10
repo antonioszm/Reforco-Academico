@@ -1,8 +1,10 @@
 package com.Exercicios.MS1S10.controller;
 
 import com.Exercicios.MS1S10.entities.Agenda;
+import com.Exercicios.MS1S10.entities.Aluno;
 import com.Exercicios.MS1S10.entities.Tutor;
 import com.Exercicios.MS1S10.errors.AgendaNotFoundException;
+import com.Exercicios.MS1S10.errors.AlunoNotFoundException;
 import com.Exercicios.MS1S10.service.AgendaService;
 import com.Exercicios.MS1S10.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,28 +27,42 @@ public class AgendaController {
         return service.listarTodos();
     }
 
+    @GetMapping("/{id}")
+    public Agenda listarPorId(@PathVariable Long id){
+        List<Agenda> listaDeAgendas = service.listarTodos();
+        for (Agenda agenda : listaDeAgendas){
+            if (agenda.getId().equals(id)){
+                ResponseEntity.status(HttpStatus.OK);
+                return service.listarPorId(id);
+            } else {
+                throw new AgendaNotFoundException(id);
+            }
+        }
+        return null;
+    }
+
     @GetMapping("agendamentos/aluno-id/{id}")
     public List<Agenda> listarPorAlunoId(@PathVariable Long id){
         ResponseEntity.status(HttpStatus.OK);
-        return listarPorAlunoId(id);
+        return service.listarPorAlunoId(id);
     }
 
     @GetMapping("agendamentos/tutor-id/{id}")
     public List<Agenda> listarPorTutorId(@PathVariable Long id){
         ResponseEntity.status(HttpStatus.OK);
-        return listarPorTutorId(id);
+        return service.listarPorTutorId(id);
     }
 
-    @GetMapping("proximos-agendamentos/tutor-id/{id}")
+    @GetMapping("proximos-agendamentos/aluno-id/{id}")
     public List<Agenda> listarProximosAgendamentosAluno (@PathVariable Long id){
         ResponseEntity.status(HttpStatus.OK);
-        return listarProximosAgendamentosAluno(id);
+        return service.listarProximosAgendamentosAluno(id);
     }
 
     @GetMapping("proximos-agendamentos/tutor-id/{id}")
     public List<Agenda> listarProximosAgendamentosTutor (@PathVariable Long id){
         ResponseEntity.status(HttpStatus.OK);
-        return listarProximosAgendamentosTutor(id);
+        return service.listarProximosAgendamentosTutor(id);
     }
 
     @PostMapping
