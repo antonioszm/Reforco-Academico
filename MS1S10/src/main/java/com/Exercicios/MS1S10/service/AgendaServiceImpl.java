@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AgendaServiceImpl implements AgendaService {
@@ -23,92 +21,89 @@ public class AgendaServiceImpl implements AgendaService {
     public List<Agenda> listarPorAlunoId(Long id){
         List<Agenda> listaAgendas = listarTodos();
         List<Agenda> listaDeAgendamentosDoAluno = new ArrayList<>();
-        List<Agenda> listaDeAgendamentosDoAlunoCresente = new ArrayList<>();
         for (Agenda agendas : listaAgendas){
             if (agendas.getId_aluno().getId().equals(id)){
                 listaDeAgendamentosDoAluno.add(agendas);
             }
         }
-        for (Agenda agenda : listaDeAgendamentosDoAluno){
-            boolean dataPosterior = true;
-            for (Agenda agenda2 : listaDeAgendamentosDoAluno){
-                if (agenda != agenda2 && agenda.getData().isBefore(agenda2.getData())) {
-                    dataPosterior = false;
-                    break;
-                }
+
+        Collections.sort(listaDeAgendamentosDoAluno, new Comparator<Agenda>() {
+            @Override
+            public int compare(Agenda o1, Agenda o2) {
+                return o1.getData().compareTo(o2.getData());
             }
-            if (dataPosterior){listaDeAgendamentosDoAlunoCresente.add(agenda);}
-        }
-        return listaDeAgendamentosDoAlunoCresente;
+        });
+        return listaDeAgendamentosDoAluno;
     }
 
     @Override
     public List<Agenda> listarProximosAgendamentosAluno(Long id){
         List<Agenda> listaAgendas = listarTodos();
         List<Agenda> listaDeAgendamentosDoAluno = new ArrayList<>();
-        List<Agenda> listaDeAgendamentosDoAlunoCresente = new ArrayList<>();
         for (Agenda agendas : listaAgendas){
             if (agendas.getId_aluno().getId().equals(id)){
                 listaDeAgendamentosDoAluno.add(agendas);
             }
         }
-        for (Agenda agenda : listaDeAgendamentosDoAluno){
-            boolean dataPosterior = true;
-            for (Agenda agenda2 : listaDeAgendamentosDoAluno){
-                if (agenda != agenda2 && agenda.getData().isBefore(agenda2.getData()) && agenda.getData().isAfter(LocalDate.now())){
-                    dataPosterior = false;
-                    break;
-                }
+
+        for (Agenda agendas : listaAgendas){
+            boolean agendaProxima = agendas.getData().isAfter(LocalDate.now());
+            if (!agendaProxima){
+                listaDeAgendamentosDoAluno.remove(agendas);
             }
-            if (dataPosterior){listaDeAgendamentosDoAlunoCresente.add(agenda);}
         }
-        return listaDeAgendamentosDoAlunoCresente;
+        Collections.sort(listaDeAgendamentosDoAluno, new Comparator<Agenda>() {
+            @Override
+            public int compare(Agenda o1, Agenda o2) {
+                return o1.getData().compareTo(o2.getData());
+            }
+        });
+        return listaDeAgendamentosDoAluno;
     }
 
     @Override
     public List<Agenda> listarProximosAgendamentosTutor(Long id){
         List<Agenda> listaAgendas = listarTodos();
         List<Agenda> listaDeAgendamentosDoTutor = new ArrayList<>();
-        List<Agenda> listaDeAgendamentosDoTutorCresente = new ArrayList<>();
         for (Agenda agendas : listaAgendas){
             if (agendas.getId_tutor().getId().equals(id)){
                 listaDeAgendamentosDoTutor.add(agendas);
             }
         }
-        for (Agenda agenda : listaDeAgendamentosDoTutor){
-            boolean dataPosterior = true;
-            for (Agenda agenda2 : listaDeAgendamentosDoTutor){
-                if (agenda != agenda2 && agenda.getData().isBefore((agenda2.getData())) && agenda.getData().isAfter(LocalDate.now())){
-                    dataPosterior = false;
-                    break;
-                }
+
+
+        for (Agenda agendas : listaAgendas){
+            boolean agendaProxima = agendas.getData().isAfter(LocalDate.now());
+            if (!agendaProxima){
+                listaDeAgendamentosDoTutor.remove(agendas);
             }
-            if (dataPosterior){listaDeAgendamentosDoTutorCresente.add(agenda);}
         }
-        return listaDeAgendamentosDoTutorCresente;
+        Collections.sort(listaDeAgendamentosDoTutor, new Comparator<Agenda>() {
+            @Override
+            public int compare(Agenda o1, Agenda o2) {
+                return o1.getData().compareTo(o2.getData());
+            }
+        });
+        return listaDeAgendamentosDoTutor;
     }
 
     @Override
     public List<Agenda> listarPorTutorId(Long id){
         List<Agenda> listaAgendas = listarTodos();
         List<Agenda> listaDeAgendamentosDoTutor = new ArrayList<>();
-        List<Agenda> listaDeAgendamentosDoTutorCresente = new ArrayList<>();
         for (Agenda agendas : listaAgendas){
             if (agendas.getId_tutor().getId().equals(id)){
                 listaDeAgendamentosDoTutor.add(agendas);
             }
         }
-        for (Agenda agenda : listaDeAgendamentosDoTutor){
-            boolean dataPosterior = true;
-            for (Agenda agenda2 : listaDeAgendamentosDoTutor){
-                if (agenda != agenda2 && agenda.getData().isBefore((agenda2.getData()))) {
-                    dataPosterior = false;
-                    break;
-                }
+
+        Collections.sort(listaDeAgendamentosDoTutor, new Comparator<Agenda>() {
+            @Override
+            public int compare(Agenda o1, Agenda o2) {
+                return o1.getData().compareTo(o2.getData());
             }
-            if (dataPosterior){listaDeAgendamentosDoTutorCresente.add(agenda);}
-        }
-        return listaDeAgendamentosDoTutorCresente;
+        });
+        return listaDeAgendamentosDoTutor;
     }
 
     @Override
